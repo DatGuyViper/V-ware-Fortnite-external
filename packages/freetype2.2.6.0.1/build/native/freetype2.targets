@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="freetype2_init">
+  <PropertyGroup Label="Default initializers for properties">
+    <Linkage-freetype2 Condition="'$(Linkage-freetype2)' == ''">dynamic</Linkage-freetype2>
+    <CallingConvention-freetype2 Condition="'$(CallingConvention-freetype2)' == ''">cdecl</CallingConvention-freetype2>
+  </PropertyGroup>
+  <ItemDefinitionGroup Label="Win32 and Release" Condition="'$(Platform.ToLower())' == 'win32' And ( $(Configuration.ToLower().IndexOf('debug')) == -1 )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/Win32\Release\freetype26.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="Win32 and Debug" Condition="'$(Platform.ToLower())' == 'win32' And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/Win32\Debug\freetype26d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="x64 and Release" Condition="'$(Platform.ToLower())' == 'x64' And ( $(Configuration.ToLower().IndexOf('debug')) == -1 )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/x64\Release\freetype26.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="x64 and Debug" Condition="'$(Platform.ToLower())' == 'x64' And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 )">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/x64\Debug\freetype26d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)../..//build/native/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)../..//build/native/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\default-propertiesui.xml" />
+  </ItemGroup>
+  <UsingTask TaskName="freetype2_Contains" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
+    <ParameterGroup>
+      <Text Output="false" ParameterType="System.String" />
+      <Library Output="false" Required="true" ParameterType="System.String" />
+      <Value Output="false" Required="true" ParameterType="System.String" />
+      <Result Output="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <Code>Result = ((Text ?? "").Split(';').Contains(Library) ) ? Value : String.Empty;</Code>
+    </Task>
+  </UsingTask>
+  <Target Name="freetype2_init">
+    <freetype2_Contains Text="Linkage-dynamic" Library="freetype2" Value="dynamic" Condition="'$(Linkage-freetype2)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-freetype2" />
+    </freetype2_Contains>
+    <freetype2_Contains Text="Linkage-static" Library="freetype2" Value="static" Condition="'$(Linkage-freetype2)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-freetype2" />
+    </freetype2_Contains>
+    <freetype2_Contains Text="Linkage-ltcg" Library="freetype2" Value="ltcg" Condition="'$(Linkage-freetype2)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-freetype2" />
+    </freetype2_Contains>
+    <freetype2_Contains Text="Linkage-sxs" Library="freetype2" Value="sxs" Condition="'$(Linkage-freetype2)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-freetype2" />
+    </freetype2_Contains>
+    <freetype2_Contains Text="CallingConvention-cdecl" Library="freetype2" Value="cdecl" Condition="'$(CallingConvention-freetype2)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-freetype2" />
+    </freetype2_Contains>
+    <freetype2_Contains Text="CallingConvention-stdcall" Library="freetype2" Value="stdcall" Condition="'$(CallingConvention-freetype2)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-freetype2" />
+    </freetype2_Contains>
+    <freetype2_Contains Text="CallingConvention-fastcall" Library="freetype2" Value="fastcall" Condition="'$(CallingConvention-freetype2)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-freetype2" />
+    </freetype2_Contains>
+    <freetype2_Contains Text="CallingConvention-thiscall" Library="freetype2" Value="thiscall" Condition="'$(CallingConvention-freetype2)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-freetype2" />
+    </freetype2_Contains>
+    <freetype2_Contains Text="CallingConvention-clrcall" Library="freetype2" Value="clrcall" Condition="'$(CallingConvention-freetype2)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-freetype2" />
+    </freetype2_Contains>
+  </Target>
+</Project>

@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="driver">
+      <UniqueIdentifier>{024a8c12-9ffa-4501-80ff-4cdf46489055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{14b18770-133e-473b-83ea-729abadd80a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk">
+      <UniqueIdentifier>{722a8b4c-976c-4078-a0df-e37b97740964}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3DX9">
+      <UniqueIdentifier>{df31fa2f-faee-4b8d-af42-0c0e031dae58}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx9.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_tables.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_freetype.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\gui.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\blur.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game\Classes.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\sdk.h">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DX\d3dx9.h">
+      <Filter>D3DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DX\d3dx9anim.h">
+      <Filter>D3DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DX\d3dx9core.h">
+      <Filter>D3DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DX\d3dx9effect.h">
+      <Filter>D3DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DX\d3dx9math.h">
+      <Filter>D3DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DX\d3dx9mesh.h">
+      <Filter>D3DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DX\d3dx9shader.h">
+      <Filter>D3DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DX\d3dx9shape.h">
+      <Filter>D3DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DX\d3dx9tex.h">
+      <Filter>D3DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DX\d3dx9xof.h">
+      <Filter>D3DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ida.hpp" />
+    <ClInclude Include="Extra\font.h" />
+    <ClInclude Include="Extra\Crypt.h" />
+    <ClInclude Include="driver\driver.hpp">
+      <Filter>driver</Filter>
+    </ClInclude>
+    <ClInclude Include="Driver\driver.h" />
+    <ClInclude Include="Extra\spoof.h" />
+    <ClInclude Include="stuff\hooks.h" />
+    <ClInclude Include="stuff\lazy.h" />
+    <ClInclude Include="ImGui\imconfig.h" />
+    <ClInclude Include="ImGui\imgui.h" />
+    <ClInclude Include="ImGui\imgui_impl_dx9.h" />
+    <ClInclude Include="ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="ImGui\imgui_internal.h" />
+    <ClInclude Include="ImGui\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\imstb_textedit.h" />
+    <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="ImGui\blur.hpp" />
+    <ClInclude Include="ImGui\blur_x.hpp" />
+    <ClInclude Include="ImGui\blur_y.hpp" />
+    <ClInclude Include="ImGui\bytes.hpp" />
+    <ClInclude Include="ImGui\color_t.hpp" />
+    <ClInclude Include="ImGui\imgui_freetype.hpp" />
+    <ClInclude Include="ImGui\imgui_freetype.h" />
+    <ClInclude Include="ImGui\gui.hpp" />
+    <ClInclude Include="ImGui\hashes.hpp" />
+    <ClInclude Include="Rendering\Config.cpp" />
+    <ClInclude Include="Rendering\Cache.h" />
+    <ClInclude Include="Rendering\Loop.h" />
+    <ClInclude Include="Rendering\Render.h" />
+    <ClInclude Include="stuff\aim.h" />
+    <ClInclude Include="Rendering\FName.h" />
+    <ClInclude Include="Rendering\LootEsp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D3DX\d3dx9math.inl">
+      <Filter>D3DX9</Filter>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="ImGui\freetype.lib" />
+    <Library Include="stuff\SonyDriverHelper.lib" />
+  </ItemGroup>
+</Project>

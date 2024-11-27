@@ -294,8 +294,6 @@ void Menu() {
 
 				gui.group_box(reinterpret_cast<const char*>(ICON_FA_BULLSEYE_ARROW " Aimbot"), ImVec2(ImGui::GetWindowWidth() / 2 - ImGui::GetStyle().ItemSpacing.x / 2, ImGui::GetWindowHeight() / 2 - ImGui::GetStyle().ItemSpacing.y / 2)); {
 					ImGui::Checkbox(skCrypt("Aimbot"), &Features::rAimbot);
-					ImGui::Checkbox(skCrypt("kernal"), &Features::mouse2);
-					ImGui::Checkbox(skCrypt("memory"), &Features::Memory);
 					ImGui::Checkbox(skCrypt("Vischeck"), &Features::rVisibleCheck);
 					ImGui::Checkbox(skCrypt("Trigger bot"), &Features::rTriggerbot);
 					ImGui::Checkbox(skCrypt("predic"), &Features::rPrediction);

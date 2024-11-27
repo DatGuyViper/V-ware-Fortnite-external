@@ -196,7 +196,7 @@ namespace Offsets {
 		GameInstance = 0x1F8,
 		LocalPlayers = 0x38,
 		PlayerController = 0x30,
-		LocalPawn = 0x338,
+		LocalPawn = 0x350,
 		PlayerState = 0x2B0,
 		RootComponent = 0x1B0,
 		AActors = 0xA0,

@@ -3,7 +3,7 @@
 
  # Basic redshirt paste
 
- # looks goot to pasters 
+ # looks good to pasters 
 
  # trumpware pastes from this 
 

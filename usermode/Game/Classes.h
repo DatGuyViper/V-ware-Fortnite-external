@@ -205,7 +205,7 @@ namespace Offsets {
 		LastFiredDirection = 0x57b0,
 		LastFiredLocation = 0x5798,
 		ReviveFromDBNOTime = 0x4C38,
-		Mesh = 0x310,
+		Mesh = 0x328,
 		TeamIndex = 0x1239,
 		Platform = 0x3f0,
 		PawnPrivate = 0x320,

@@ -308,11 +308,11 @@ public:
 		return Vector3(matrix._41, matrix._42, matrix._43);
 	}
 
-	bool WasRecentlyRendered(uintptr_t mesh)
-	{
-	    auto Seconds = read<double>(Cached::UWorld + 0x148);
- 	   auto LastRenderTime = read<float>(mesh + 0x2F0);
-	    return Seconds - LastRenderTime <= 0.06f;
+	__forceinline bool WasRecentlyRendered(uintptr_t mesh)
+	   {
+		double Seconds = KM::read<double>(Uworld_Cam + 0x148);
+		float LastRenderTime = KM::read<float>((uintptr_t)this + 0x2F0);
+		return Seconds - LastRenderTime <= 0.06f;
 	}
 };
 

@@ -310,8 +310,8 @@ public:
 
 	__forceinline bool WasRecentlyRendered(uintptr_t mesh)
 	   {
-		double Seconds = KM::read<double>(Uworld_Cam + 0x148);
-		float LastRenderTime = KM::read<float>((uintptr_t)this + 0x2F0);
+		double Seconds = read<double>(Uworld_Cam + 0x148);
+		float LastRenderTime = read<float>((uintptr_t)this + 0x2F0);
 		return Seconds - LastRenderTime <= 0.06f;
 	}
 };

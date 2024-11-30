@@ -147,7 +147,7 @@ inline auto loop() -> void
 		Vector3 Head3D = Mesh->GetSocketLocation(110);
 		Vector2 Head2D = Cached::PlayerController->ProjectWorldLocationToScreen(Head3D);
 
-		Vector3 Bottom3D = Mesh->GetSocketLocation(0);
+		Vector3 Bottom3D = Mesh->GetSocketLocation(0);//
 		Vector2 Bottom2D = Cached::PlayerController->ProjectWorldLocationToScreen(Bottom3D);
 
 		float BoxHeight = abs(Head2D.y - Bottom2D.y) * 1.2f;

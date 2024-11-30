@@ -64,7 +64,7 @@ BOOL(*_UpdateWindow)(HWND) = nullptr;
 BOOL(*_GetClientRect)(HWND, LPRECT) = nullptr;
 BOOL(*_ClientToScreen)(HWND, LPPOINT) = nullptr;
 
-void mouse_interface()
+void Hook_start()
 {
 	SPOOF_FUNC;
 
@@ -90,7 +90,6 @@ void mouse_interface()
 	}
 
 
-	void* NtUserInjectMouseInputAddress = (void*)LI_FN(GetProcAddress).get()(win32u, skCrypt("NtUserInjectMouseInput"));
 	void* GetCursorPos = (void*)LI_FN(GetProcAddress).get()(user32, skCrypt("GetCursorPos"));
 	void* SetLayeredWindowAttributes = (void*)LI_FN(GetProcAddress).get()(user32, skCrypt("SetLayeredWindowAttributes"));
 	void* DwmExtendFrameIntoClientArea = (void*)LI_FN(GetProcAddress).get()(dwmapi, skCrypt("DwmExtendFrameIntoClientArea"));
@@ -116,10 +115,6 @@ void mouse_interface()
 	void* updetewindow = (void*)LI_FN(GetProcAddress).get()(user32, skCrypt("UpdateWindow"));
 	void* clientrect = (void*)LI_FN(GetProcAddress).get()(user32, skCrypt("GetClientRect"));
 	void* clienttoscreen = (void*)LI_FN(GetProcAddress).get()(user32, skCrypt("ClientToScreen"));
-
-	if (!NtUserInjectMouseInputAddress) {
-		return;
-	}
 
 	if (!GetCursorPos) {
 		return;
@@ -412,16 +407,4 @@ BOOL __stdcall ClientToScreen_Spoofed(HWND hWnd, LPPOINT lpRect) {
 
 	return ClientToScreen(hWnd, lpRect);
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

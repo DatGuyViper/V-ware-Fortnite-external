@@ -144,10 +144,10 @@ inline auto loop() -> void
 		auto cmp2_wrld = read<FTransform>(reinterpret_cast<uintptr_t>(Mesh) + 0x1c0);
 		auto cmp2_wrld_matrix = cmp2_wrld.ToMatrixWithScale();
 
-		Vector3 Head3D = Mesh->GetSocketLocation(bone_cache, 110, cmp2_wrld_matrix);
+		Vector3 Head3D = Mesh->GetSocketLocation(110);
 		Vector2 Head2D = Cached::PlayerController->ProjectWorldLocationToScreen(Head3D);
 
-		Vector3 Bottom3D = Mesh->GetSocketLocation(bone_cache, 0, cmp2_wrld_matrix);
+		Vector3 Bottom3D = Mesh->GetSocketLocation(0);
 		Vector2 Bottom2D = Cached::PlayerController->ProjectWorldLocationToScreen(Bottom3D);
 
 		float BoxHeight = abs(Head2D.y - Bottom2D.y) * 1.2f;

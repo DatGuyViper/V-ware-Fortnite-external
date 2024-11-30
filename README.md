@@ -8,7 +8,8 @@ ill work on it and make it better in the future
 # UI
 
 
-![image](https://github.com/user-attachments/assets/37faf893-0439-4965-a2b4-b745af0008e7)
+![image](https://github.com/user-attachments/assets/c37cf244-f79f-492d-ba00-bdc6d341744f)
+
 
 
 

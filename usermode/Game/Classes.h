@@ -292,20 +292,19 @@ public:
 };
 class USkeletalMeshComponent : public AActor {
 public:
-	Vector3 GetSocketLocation(int cache_idx, int bone_id, D3DMATRIX cmp_2_wrld_matrix) {
-		/*int cacheIdx = read<int>(GetAddress() + Offsets::BoneCache);*/
-		auto boneTransform = read<FTransform>(read<uintptr_t>(GetAddress() + 0x10 * cache_idx + Offsets::BoneArray) + 0x60 * bone_id);
-		/*FTransform componentToWorld = read<FTransform>(GetAddress() + 0x1c0);*/
-		D3DMATRIX matrix = MatrixMultiplication(boneTransform.ToMatrixWithScale(), cmp_2_wrld_matrix/*componentToWorld.ToMatrixWithScale()*/);
-		return Vector3(matrix._41, matrix._42, matrix._43);
-	}
 
-	Vector3 GetSocketLocation2(int bone_id) {
-		int cacheIdx = read<int>(GetAddress() + Offsets::BoneCache);
-		auto boneTransform = read<FTransform>(read<uintptr_t>(GetAddress() + 0x10 * cacheIdx + Offsets::BoneArray) + 0x60 * bone_id);
-		FTransform componentToWorld = read<FTransform>(GetAddress() + 0x1c0);
-		D3DMATRIX matrix = MatrixMultiplication(boneTransform.ToMatrixWithScale(), componentToWorld.ToMatrixWithScale());
-		return Vector3(matrix._41, matrix._42, matrix._43);
+	 Vector3 GetSocketLocation(int bone_id)
+	{
+		uintptr_t bone_array = read<uintptr_t>((uintptr_t)this + Offsets::BoneArray);
+		if (bone_array == NULL) {
+			bone_array = read<uintptr_t>((uintptr_t)this + Offsets::BoneArray + 0x10);
+		}
+
+		auto BoneTransform = read<FTransform>(bone_array + (bone_id * 0x60));
+		FTransform ComponentToWorld = read<FTransform>((uintptr_t)this + Offsets::ComponentToWorld);
+
+		D3DMATRIX Matrix = MatrixMultiplication(BoneTransform.ToMatrixWithScale(), ComponentToWorld.ToMatrixWithScale());
+		return Vector3(Matrix._41, Matrix._42, Matrix._43);
 	}
 
 	__forceinline bool WasRecentlyRendered(uintptr_t mesh)
@@ -1128,25 +1127,25 @@ namespace draw {
 		float jointRadius = 0.5f * (100.0f / distance);
 
 		std::vector<Vector3> bones = {
-			Mesh->GetSocketLocation(cache_idx, 66, matrix),
-			Mesh->GetSocketLocation(cache_idx, 66, matrix),
-			Mesh->GetSocketLocation(cache_idx, 9, matrix),
-			Mesh->GetSocketLocation(cache_idx, 10, matrix),
-			Mesh->GetSocketLocation(cache_idx, 11, matrix),
-			Mesh->GetSocketLocation(cache_idx, 38, matrix),
-			Mesh->GetSocketLocation(cache_idx, 39, matrix),
-			Mesh->GetSocketLocation(cache_idx, 40, matrix),
-			Mesh->GetSocketLocation(cache_idx, 2, matrix),
-			Mesh->GetSocketLocation(cache_idx, 71, matrix),
-			Mesh->GetSocketLocation(cache_idx, 72, matrix),
-			Mesh->GetSocketLocation(cache_idx, 75, matrix),
-			Mesh->GetSocketLocation(cache_idx, 76, matrix),
-			Mesh->GetSocketLocation(cache_idx, 78, matrix),
-			Mesh->GetSocketLocation(cache_idx, 79, matrix),
-			Mesh->GetSocketLocation(cache_idx, 82, matrix),
-			Mesh->GetSocketLocation(cache_idx, 83, matrix),
-			Mesh->GetSocketLocation(cache_idx, 110, matrix),
-			Mesh->GetSocketLocation(cache_idx, 66, matrix)
+			Mesh->GetSocketLocation(66),
+			Mesh->GetSocketLocation(66),
+			Mesh->GetSocketLocation(9),
+			Mesh->GetSocketLocation(10),
+			Mesh->GetSocketLocation(11),
+			Mesh->GetSocketLocation(38),
+			Mesh->GetSocketLocation(39),
+			Mesh->GetSocketLocation(40),
+			Mesh->GetSocketLocation(2),
+			Mesh->GetSocketLocation(71),
+			Mesh->GetSocketLocation(72),
+			Mesh->GetSocketLocation(75),
+			Mesh->GetSocketLocation(76),
+			Mesh->GetSocketLocation(78),
+			Mesh->GetSocketLocation(79),
+			Mesh->GetSocketLocation(82),
+			Mesh->GetSocketLocation(83),
+			Mesh->GetSocketLocation(110),
+			Mesh->GetSocketLocation(66)
 		};
 
 		std::vector<Vector2> screenPositions(bones.size());

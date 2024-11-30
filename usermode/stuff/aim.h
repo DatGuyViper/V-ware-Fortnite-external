@@ -77,8 +77,8 @@ void aimbot(int bone, const std::string& weapon) {
 		return;
 	}
 
-	Vector3 LocalHead3D = Cached::LocalPawn->Mesh()->GetSocketLocation2(bone);
-	Vector3 Head3D = mesh->GetSocketLocation2(bone);
+	Vector3 LocalHead3D = Cached::LocalPawn->Mesh()->GetSocketLocation(bone);
+	Vector3 Head3D = mesh->GetSocketLocation(bone);
 	Vector2 Head2D = Cached::PlayerController->ProjectWorldLocationToScreen(Head3D);
 
 	ImGuiIO& io = ImGui::GetIO();
@@ -139,6 +139,8 @@ void aimbot(int bone, const std::string& weapon) {
 	if (!Features::rLockTarget) {
 		ResetTarget();
 	}
+
+	ResetTarget();
 }
 
 void triggerbot(std::string weapon, uintptr_t playercontroller) {

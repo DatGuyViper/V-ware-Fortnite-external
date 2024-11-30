@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <sstream>
 #include <iomanip>
 #include <mutex>
@@ -34,8 +34,6 @@
 #include "../Rendering/Loop.h"
 #include "../stuff/aim.h"
 
-#include "Rendering/LootEsp.h"
-
 #pragma comment(lib, "d3dx9.lib")
 #pragma comment(lib, "dwmapi.lib")
 #define  IMGUI_DEFINE_MATH_OPERATORS
@@ -43,15 +41,10 @@
 #define NO_ALPHA ( ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel | ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_Float | ImGuiColorEditFlags_NoDragDrop | ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_NoBorder )
 
 
-
-IDirect3DTexture9* avatar{ };
-IDirect3DTexture9* bg{ };
 static LPDIRECT3D9              g_pD3D = nullptr;
 static LPDIRECT3DDEVICE9        g_pd3dDevice = nullptr;
 static UINT                     g_ResizeWidth = 0, g_ResizeHeight = 0;
 static D3DPRESENT_PARAMETERS    g_d3dpp = {};
-
-HWND window_handle;
 
 
 
@@ -184,18 +177,15 @@ void Menu() {
 	if (GetAsyncKeyState_Spoofed(VK_INSERT) & 1) rMenu = !rMenu;
 
 	if (rMenu) {
-		if (!avatar)
-			D3DXCreateTextureFromFileInMemoryEx(g_pd3dDevice, &esliboganet, sizeof esliboganet, 30, 30, D3DX_DEFAULT, 0,
-				D3DFMT_UNKNOWN, D3DPOOL_DEFAULT, D3DX_DEFAULT, D3DX_DEFAULT, 0, NULL, NULL, &avatar);
 
-		ImGui::Begin(skCrypt("NIGGERLOSE"), NULL, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoTitleBar);
+		ImGui::Begin(skCrypt("VWARE"), NULL, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoTitleBar);
 		ImFontConfig icons_config;
 		icons_config.MergeMode = true;
 		icons_config.PixelSnapH = true;
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		static bool bools[50]{};
 		static int ints[50]{}, combo = 0;
-		std::vector<const char*> items = { "Option", "Option 1", "Option 2", "Option 3", "Option 4", "Option 5", " Option 6", "Option 7", "Option 8", "Option 9" };
+		//std::vector<const char*> items = { "Option", "Option 1", "Option 2", "Option 3", "Option 4", "Option 5", " Option 6", "Option 7", "Option 8", "Option 9" };
 		static char buf[64];
 
 		static float color[4] = { 1.f, 1.f, 1.f, 1.f };
@@ -220,7 +210,6 @@ void Menu() {
 
 			ImVec2 imageStart = ImVec2(pos.x + 15, pos.y + size.y - 40);
 			ImVec2 imageEnd = ImVec2(pos.x + 45, pos.y + size.y - 10);
-			draw->AddImageRounded(avatar, imageStart, imageEnd, ImVec2(0, 0), ImVec2(1, 1), ImColor(1.f, 1.f, 1.f, 1.f), 100);
 
 			ImVec2 evropePos = ImVec2(pos.x + 50, pos.y + size.y - 40);
 			draw->AddText(evropePos, gui.text.to_im_color(), skCrypt("VIPER"));
@@ -244,9 +233,7 @@ void Menu() {
 
 			ImGui::Spacing(), ImGui::Spacing(), ImGui::Spacing();
 
-			gui.group_title(skCrypt("Miscellaneous"));
-			if (gui.tab(reinterpret_cast<const char*>(ICON_FA_HAMMER), skCrypt("Exploits"), gui.m_tab == 3) && gui.m_tab != 3)
-				gui.m_tab = 3, gui.m_anim = 0.f;
+			gui.group_title(skCrypt("About"));
 
 			if (gui.tab(reinterpret_cast<const char*>(ICON_FA_CODE), skCrypt("About"), gui.m_tab == 4) && gui.m_tab != 4)
 				gui.m_tab = 4, gui.m_anim = 0.f;
@@ -254,8 +241,6 @@ void Menu() {
 			ImGui::EndChild();
 
 			SetCursorPos(ImVec2(190, 20));
-			ImGui::Button(reinterpret_cast<const char*>(ICON_FA_SAVE " Save"), ImVec2(100, 25)); {
-			}
 
 			ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
 
@@ -265,18 +250,6 @@ void Menu() {
 			ImVec2 windowPos = GetWindowPos();
 			ImVec2 windowSize = GetWindowSize();
 			ImVec2 windowPosMax(windowPos.x + windowSize.x, windowPos.y + windowSize.y);
-
-			GetWindowDrawList()->AddRectFilled(windowPos, windowPosMax, gui.button.to_im_color(), 4);
-			GetWindowDrawList()->AddRect(windowPos, windowPosMax, gui.border.to_im_color(), 4);
-
-			for (int i = 0; i < gui.rage_subtabs.size(); ++i) {
-				if (gui.subtab(gui.rage_subtabs.at(i), gui.m_rage_subtab == i, gui.rage_subtabs.size(), i == 0 ? ImDrawFlags_RoundCornersLeft : i == gui.rage_subtabs.size() ? ImDrawFlags_RoundCornersRight : 0) && gui.m_rage_subtab != i)
-					gui.m_rage_subtab = i, gui.m_anim = 0.f;
-
-				if (i != gui.rage_subtabs.size() - 1)
-					SameLine();
-
-			}
 
 			ImGui::EndChild();
 
@@ -296,7 +269,7 @@ void Menu() {
 					ImGui::Checkbox(skCrypt("Aimbot"), &Features::rAimbot);
 					ImGui::Checkbox(skCrypt("Vischeck"), &Features::rVisibleCheck);
 					ImGui::Checkbox(skCrypt("Trigger bot"), &Features::rTriggerbot);
-					ImGui::Checkbox(skCrypt("predic"), &Features::rPrediction);
+					ImGui::Checkbox(skCrypt("Prediction"), &Features::rPrediction);
 				} gui.end_group_box();
 
 				gui.group_box(reinterpret_cast<const char*>(ICON_FA_COG " Options"), ImVec2(ImGui::GetWindowWidth() / 2 - ImGui::GetStyle().ItemSpacing.x / 2, ImGui::GetWindowHeight() / 2 - ImGui::GetStyle().ItemSpacing.y / 2)); {
@@ -361,8 +334,6 @@ void Menu() {
 						FULL_BOX_3D,
 						ROUNDED_BOX,
 						OUTLINES,
-						julian3d,
-						julian2d,
 						FILL_BOX
 					};
 
@@ -378,8 +349,6 @@ void Menu() {
 								Esp::rRgbBox = (boxType == RGB_BOX);
 								Esp::rFullbox3D = (boxType == FULL_BOX_3D);
 								Esp::rRoundedBox = (boxType == ROUNDED_BOX);
-								Esp::julian3d = (boxType == julian3d);
-								Esp::julian2d = (boxType == julian2d);
 								Esp::rRoundedBox = (boxType == ROUNDED_BOX);
 							}
 							else {
@@ -456,39 +425,18 @@ void Menu() {
 					ImGui::Checkbox(skCrypt("MiscOutline"), &Esp::MiscOutline);
 					ImGui::Checkbox(skCrypt("Array List"), &Features::ArrayList);
 
-					ImGui::Checkbox("Enable", &loot::world.enable);
-					ImGui::Checkbox("Chests", &loot::world.chests);
-					ImGui::Checkbox("Pickups", &loot::world.pickups);
-					ImGui::Checkbox("Uncommon", &loot::world.uncommon);
-					ImGui::Checkbox("Common", &loot::world.common);
-					ImGui::Checkbox("Epic", &loot::world.epic);
-					ImGui::Checkbox("Rare", &loot::world.rare);
-					ImGui::Checkbox("Legendary", &loot::world.legendary);
-					ImGui::Checkbox("Mythic", &loot::world.mythic);
-					ImGui::SliderInt("World Visuals Distance", &loot::world.loot_distance, 1, 250);
-
 				} gui.end_group_box();
-				break;
-
-			case 3:
-
-				gui.group_box(reinterpret_cast<const char*>(ICON_FA_USER_CHART " Exploits"), ImVec2(ImGui::GetWindowWidth() / 2 - ImGui::GetStyle().ItemSpacing.x / 2, ImGui::GetWindowHeight())); {
-
-				} gui.end_group_box();
-
-				ImGui::SameLine(), ImGui::SetCursorPosY(0);
-				gui.group_box(reinterpret_cast<const char*>(ICON_FA_USER_CHART " Options"), ImVec2(ImGui::GetWindowWidth() / 2 - ImGui::GetStyle().ItemSpacing.x / 2, ImGui::GetWindowHeight())); {
-
-				} gui.end_group_box();
-
 				break;
 
 			case 4:
 				gui.group_box(reinterpret_cast<const char*>(ICON_FA_USER_CHART " Misc"), ImVec2(ImGui::GetWindowWidth() / 1 - ImGui::GetStyle().ItemSpacing.x / 1, ImGui::GetWindowHeight())); {
 
-					ImGui::Text(skCrypt("Dev 1"));
+					ImGui::Text(skCrypt("Dev"));
 
-					ImGui::Text(skCrypt("Viper"));
+					if (ImGui::Selectable(skCrypt("VIPER"), false, ImGuiSelectableFlags_DontClosePopups))
+					{
+						system(skCrypt("start https://guns.lol/vipah"));
+					}
 				} 
 
 				gui.end_group_box();
@@ -597,7 +545,6 @@ WPARAM MainLoop() {
 		ImGui::NewFrame();
 		ImGui::StyleColorsDark();
 		Render1();
-		loot::level_drawing();
 		Menu();
 		ImGui::EndFrame();
 
@@ -657,8 +604,7 @@ int main() {
 	std::cout << skCrypt("Base Address -> ") << virtualaddy << std::endl;
 	std::cout << skCrypt("CR3 -> ") << cr3 << std::endl;
 
-	mouse_interface();
-	std::thread(loot::cache_levels).detach();
+	Hook_start();
 	InitializeDirectXOverlay();
 	MainLoop();
 }

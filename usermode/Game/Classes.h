@@ -309,7 +309,7 @@ public:
 
 	__forceinline bool WasRecentlyRendered(uintptr_t mesh)
 	   {
-		double Seconds = read<double>(Uworld_Cam + 0x148);
+		double Seconds = read<double>(Uworld_Cam + 0x150);
 		float LastRenderTime = read<float>((uintptr_t)this + 0x2F0);
 		return Seconds - LastRenderTime <= 0.06f;
 	}

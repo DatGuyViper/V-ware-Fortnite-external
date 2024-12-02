@@ -7,8 +7,6 @@
 #include "../Extra/Crypt.h"
 #include <string>
 
-uintptr_t va_text = 0;
-
 #define PI 3.14159265358979323846f
 #define M_PI 3.14159265358979323846
 
@@ -183,46 +181,41 @@ namespace Features
 	inline int rADSFovSize = 200;
 }
 
+#include <cstdint>
+
 namespace Offsets {
 	uint64_t
+
 		UWorld = 0x13723C18,
 		GNames = 0x13078C08,
-		GObjects = 0x122D8A00,
-		Usernames = 0xA98,
-		PersistentLevel = 0x40,
-		OwningWorld = 0xc0,
-		GameState = 0x180,
+		GameState = 0x188,
 		PlayerArray = 0x2C0,
-		GameInstance = 0x1F8,
+		OwningGameInstance = 0x200,
 		LocalPlayers = 0x38,
 		PlayerController = 0x30,
 		LocalPawn = 0x350,
 		PlayerState = 0x2c8,
 		RootComponent = 0x1B0,
+		PersistentLevel = 0x40,
 		AActors = 0xA0,
 		ActorCount = 0xA8,
-		LastFiredTime = 0x57c8,
-		LastFiredDirection = 0x57b0,
-		LastFiredLocation = 0x5798,
 		ReviveFromDBNOTime = 0x4C38,
 		Mesh = 0x328,
 		TeamIndex = 0x1261,
-		Platform = 0x3f0,
+		Platform = 0x408,
 		PawnPrivate = 0x320,
 		RelativeLocation = 0x138,
-		PrimaryPickupItemEntry = 0x350,
+		PrimaryPickupItemEntry = 0x360,
 		ItemDefinition = 0x18,
-		Rarity = 0x9A,
+		Rarity = 0xA2,
 		ItemName = 0x40,
 		Levels = 0x178,
 		WeaponData = 0x568,
-		AmmoCount = 0xef4,
-		bIsTargeting = 0x581,
+		AmmoCount = 0xF9c,
+		bIsTargeting = 0x12d8,
+		ComponentVelocity = 0x180,
 		TargetedFortPawn = 0x1920,
-		CurrentWeapon = 0x9F8,
-		ProjectileSpeed = 0x1CC4,
-		ProjectileGravity = 0x1F34,
-		ComponentVelocity = 0x168,
+		CurrentWeapon = 0xa80,
 		CurrentWeaponList = 0xa08,
 		BoneArray = 0x5A8,
 		BoneCache = 0x5B8,
@@ -232,28 +225,22 @@ namespace Offsets {
 		CameraManager = 0x348,
 		LastFiredLoc = 0x57e8,
 		LastFiredDir = 0x5800,
-		KillScore = 0x1224,
-
-
-		rarity = 0x9A,
-		item_name = 0x40,
-		levels = 0x178,
-		tier = 0xA2,
-		weapon_data = 0x520,
-		weapon_name = 0x40,
-		ammo_count = 0xef4,
-
-
-		SeasonLevelUIDisplay = 0x1228;
-
+		KillScore = 0x124c,
+		SeasonLevelUIDisplay = 0x1250,
+		ProjectileSpeed = 0x1A24,
+		ProjectileGravity = 0x1DF0,
+		RankTier = 0xB8,
+		HabaneroComponent = 0xa10,
+		PlayerName = 0xAF8,
+		ViewState = 0xD0,
+		RankedProgress = 0xB8;
 }
+
 #define FortPTR uintptr_t
 
 #define DECLARE_MEMBER(type, name, offset) \
     type name() { return read<type>(reinterpret_cast<uintptr_t>(this) + offset); }
 
-#define APPLY_MEMBER(type, name, offset) \
-    void name(type val) { write<type>(reinterpret_cast<uintptr_t>(this) + offset, val); }
 
 DWORD_PTR Uworld_Cam;
 
@@ -270,7 +257,6 @@ class USceneComponent : public UObject {
 public:
 	DECLARE_MEMBER(Vector3, RelativeLocation, Offsets::RelativeLocation)
 	DECLARE_MEMBER(Vector3, GetComponentVelocity, Offsets::ComponentVelocity)
-	APPLY_MEMBER(Vector3, SetActorLocation, Offsets::RelativeLocation)
 };
 
 class AActor : public UObject {
@@ -343,7 +329,7 @@ CameraInfo GetCameraInfo() {
 	rotationInfo.yaw = read<double>(rotation_pointer + 0x20);
 	rotationInfo.roll = read<double>(rotation_pointer + 0x1d0);
 
-	camera.location = read<FVector>(location_pointer);
+	camera.location = read<Vector3>(location_pointer);
 	camera.rotation.x = asin(rotationInfo.roll) * (180.0 / M_PI);
 	camera.rotation.y = ((atan2(rotationInfo.pitch * -1, rotationInfo.yaw) * (180.0 / M_PI)) * -1) * -1;
 	camera.fov = read<float>((uintptr_t)Copy_PlayerController_Camera + 0x3AC) * 90.f; //  * 90.f
@@ -587,7 +573,7 @@ public:
 
 class UWorld : public AActor {
 public:
-	DECLARE_MEMBER(UGameInstance*, OwningGameInstance, Offsets::GameInstance)
+	DECLARE_MEMBER(UGameInstance*, OwningGameInstance, Offsets::OwningGameInstance)
 	DECLARE_MEMBER(ULevel*, PersistentLevel, Offsets::PersistentLevel)
 	DECLARE_MEMBER(AGameStateBase*, GameState, Offsets::GameState)
 };
@@ -877,7 +863,7 @@ namespace lazy {
 	}
 
 	std::string GetPlayerName(uintptr_t playerState) {
-		__int64 FString = read<__int64>(playerState + Offsets::Usernames);
+		__int64 FString = read<__int64>(playerState + Offsets::PlayerName);
 
 		int length = read<int>(FString + 16);
 		__int64 v6 = length;

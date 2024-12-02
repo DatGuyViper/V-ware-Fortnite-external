@@ -185,8 +185,8 @@ namespace Features
 
 namespace Offsets {
 	uint64_t
-		UWorld = 0x12E8EF68,
-		GNames = 0x130C2A80,
+		UWorld = 0x13723C18,
+		GNames = 0x13078C08,
 		GObjects = 0x122D8A00,
 		Usernames = 0xA98,
 		PersistentLevel = 0x40,
@@ -197,7 +197,7 @@ namespace Offsets {
 		LocalPlayers = 0x38,
 		PlayerController = 0x30,
 		LocalPawn = 0x350,
-		PlayerState = 0x2B0,
+		PlayerState = 0x2c8,
 		RootComponent = 0x1B0,
 		AActors = 0xA0,
 		ActorCount = 0xA8,
@@ -206,10 +206,10 @@ namespace Offsets {
 		LastFiredLocation = 0x5798,
 		ReviveFromDBNOTime = 0x4C38,
 		Mesh = 0x328,
-		TeamIndex = 0x1239,
+		TeamIndex = 0x1261,
 		Platform = 0x3f0,
 		PawnPrivate = 0x320,
-		RelativeLocation = 0x120,
+		RelativeLocation = 0x138,
 		PrimaryPickupItemEntry = 0x350,
 		ItemDefinition = 0x18,
 		Rarity = 0x9A,
@@ -218,17 +218,17 @@ namespace Offsets {
 		WeaponData = 0x568,
 		AmmoCount = 0xef4,
 		bIsTargeting = 0x581,
-		TargetedFortPawn = 0x1898,
+		TargetedFortPawn = 0x1920,
 		CurrentWeapon = 0x9F8,
 		ProjectileSpeed = 0x1CC4,
 		ProjectileGravity = 0x1F34,
 		ComponentVelocity = 0x168,
 		CurrentWeaponList = 0xa08,
-		BoneArray = 0x580,
+		BoneArray = 0x5A8,
 		BoneCache = 0x5B8,
 		LastSubmitTime = 0x2E8,
 		LastRenderTime = 0x2F0,
-		ComponentToWorld = 0x1C0,
+		ComponentToWorld = 0x1E0,
 		CameraManager = 0x348,
 		LastFiredLoc = 0x57e8,
 		LastFiredDir = 0x5800,
@@ -325,9 +325,10 @@ CameraInfo camera;
 CameraInfo Copy_CameraInfo;
 FortPTR Copy_PlayerController_Camera;
 
+
 CameraInfo GetCameraInfo() {
-	auto location_pointer = read<uintptr_t>(Uworld_Cam + 0x128);
-	auto rotation_pointer = read<uintptr_t>(Uworld_Cam + 0x138);
+	auto location_pointer = read<uintptr_t>(Uworld_Cam + 0x130);
+	auto rotation_pointer = read<uintptr_t>(Uworld_Cam + 0x140);
 
 	struct RotationInfo
 	{
@@ -342,10 +343,10 @@ CameraInfo GetCameraInfo() {
 	rotationInfo.yaw = read<double>(rotation_pointer + 0x20);
 	rotationInfo.roll = read<double>(rotation_pointer + 0x1d0);
 
-	camera.location = read<Vector3>(location_pointer);
+	camera.location = read<FVector>(location_pointer);
 	camera.rotation.x = asin(rotationInfo.roll) * (180.0 / M_PI);
 	camera.rotation.y = ((atan2(rotationInfo.pitch * -1, rotationInfo.yaw) * (180.0 / M_PI)) * -1) * -1;
-	camera.fov = read<float>((uintptr_t)Copy_PlayerController_Camera + 0x3AC) * 90.f;
+	camera.fov = read<float>((uintptr_t)Copy_PlayerController_Camera + 0x3AC) * 90.f; //  * 90.f
 	return camera;
 }
 

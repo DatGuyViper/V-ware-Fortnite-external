@@ -186,17 +186,17 @@ namespace Features
 namespace Offsets {
 	uint64_t
 
-		UWorld = 0x13723C18,
+		UWorld = 0x13743D18,
 		GNames = 0x13078C08,
-		GameState = 0x188,
+		GameState = 0x178,
 		PlayerArray = 0x2C0,
-		OwningGameInstance = 0x200,
+		OwningGameInstance = 0x1F0,
 		LocalPlayers = 0x38,
 		PlayerController = 0x30,
 		LocalPawn = 0x350,
 		PlayerState = 0x2c8,
 		RootComponent = 0x1B0,
-		PersistentLevel = 0x40,
+		PersistentLevel = 0x38,
 		AActors = 0xA0,
 		ActorCount = 0xA8,
 		ReviveFromDBNOTime = 0x4C38,
@@ -313,8 +313,8 @@ FortPTR Copy_PlayerController_Camera;
 
 
 CameraInfo GetCameraInfo() {
-	auto location_pointer = read<uintptr_t>(Uworld_Cam + 0x130);
-	auto rotation_pointer = read<uintptr_t>(Uworld_Cam + 0x140);
+	auto location_pointer = read<uintptr_t>(Uworld_Cam + 0x120);
+	auto rotation_pointer = read<uintptr_t>(Uworld_Cam + 0x130);
 
 	struct RotationInfo
 	{

@@ -517,13 +517,13 @@ WPARAM MainLoop() {
 
 		if (rc.left != old_rc.left || rc.right != old_rc.right || rc.top != old_rc.top || rc.bottom != old_rc.bottom) {
 			old_rc = rc;
-			windowHW::screenWidth = rc.right;
+			screen_width = rc.right;
 			ScreenHeight = rc.bottom;
 
-			p_Params.BackBufferWidth = windowHW::screenWidth;
+			p_Params.BackBufferWidth = screen_width;
 			p_Params.BackBufferHeight = ScreenHeight;
 
-			SetWindowPos_Spoofed(MyHwnd, HWND_TOP, xy.x, xy.y, windowHW::screenWidth, ScreenHeight, SWP_NOREDRAW);
+			SetWindowPos_Spoofed(MyHwnd, HWND_TOP, xy.x, xy.y, screen_width, ScreenHeight, SWP_NOREDRAW);
 			p_Device->Reset(&p_Params);
 		}
 		

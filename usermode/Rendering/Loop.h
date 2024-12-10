@@ -77,7 +77,7 @@ inline auto loop() -> void
 
 
 	if (Features::rFovCircle) {
-		ImVec2 screenCenter(windowHW::screenWidth / 2, windowHW::screenHeight / 2);
+		ImVec2 screenCenter(screen_width / 2, screen_height / 2);
 
 		ImColor borderColor(255, 255, 255, 255);
 		ImColor fillColor(255, 255, 255, 20);
@@ -158,7 +158,7 @@ inline auto loop() -> void
 
 		if (distance > Features::rMaxDistance) continue;
 
-		auto crossdist = GetCrossDistance(Head2D.x, Head2D.y, windowHW::screenWidth / 2, windowHW::screenHeight / 2);
+		auto crossdist = GetCrossDistance(Head2D.x, Head2D.y, screen_width / 2, screen_height / 2);
 		Vector2 Center = Head2D;
 		Center.y = (Head2D.y + Bottom2D.y) / 2.0f;
 
@@ -230,7 +230,7 @@ inline auto loop() -> void
 		}
 
 		if (Esp::rSnaplines) {
-			ImVec2 topMiddleScreen(windowHW::screenWidth / 2, 5);
+			ImVec2 topMiddleScreen(screen_width / 2, 5);
 
 			if (Head2D.x > 0 && Head2D.y > 0) {
 				float baseHeadSize = 1.0f;
@@ -261,7 +261,7 @@ inline auto loop() -> void
 			}
 		}
 
-		auto dist = GetCrossDistance(Head2D.x, Head2D.y, windowHW::screenWidth / 2, windowHW::screenHeight / 2);
+		auto dist = GetCrossDistance(Head2D.x, Head2D.y, screen_width / 2, screen_height / 2);
 
 		if (Head2D.x > 0 && Head2D.y > 0 && dist < Features::rFovSize && dist < Cached::ClosestDistance) {
 			Cached::ClosestDistance = dist;
@@ -295,12 +295,12 @@ inline auto loop() -> void
 
 
 
-		ImVec2 center(windowHW::screenWidth / 2, windowHW::screenHeight / 2);
+		ImVec2 center(screen_width / 2, screen_height / 2);
 
 		if (currentSnapline == 1)
-			draw_list->AddLine(ImVec2(windowHW::screenWidth / 2, windowHW::screenHeight - 5), ImVec2(Bottom2D.x, Bottom2D.y), ImColor(visible_color), 1);
+			draw_list->AddLine(ImVec2(screen_width / 2, screen_height - 5), ImVec2(Bottom2D.x, Bottom2D.y), ImColor(visible_color), 1);
 		else if (currentSnapline == 2)
-			draw_list->AddLine(ImVec2(windowHW::screenWidth / 2, 0), ImVec2(Head2D.x, Head2D.y), ImColor(visible_color), 1);
+			draw_list->AddLine(ImVec2(screen_width / 2, 0), ImVec2(Head2D.x, Head2D.y), ImColor(visible_color), 1);
 		else if (currentSnapline == 3)
 			draw_list->AddLine(ImVec2(center.x, center.y), ImVec2(Head2D.x, Head2D.y), ImColor(visible_color), 1);
 
@@ -309,7 +309,7 @@ inline auto loop() -> void
 			char rendercount[256];
 			sprintf(rendercount, skCrypt("Render Count: %d"), PlayerArray.Count);
 			ImVec2 text_size = ImGui::CalcTextSize(rendercount);
-			float x = (windowHW::screenWidth - text_size.x) / 2.0f;
+			float x = (screen_width - text_size.x) / 2.0f;
 			float y = 80.0f;
 			ImGui::GetBackgroundDrawList()->AddText(ImGui::GetFont(), 15.0f, ImVec2(x, y), ImColor(255, 0, 0, 255), rendercount);
 		}

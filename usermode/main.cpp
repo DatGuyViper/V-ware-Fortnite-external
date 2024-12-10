@@ -545,6 +545,7 @@ WPARAM MainLoop() {
 		ImGui::NewFrame();
 		ImGui::StyleColorsDark();
 		Render1();
+		loop();
 		Menu();
 		ImGui::EndFrame();
 
@@ -576,8 +577,15 @@ WPARAM MainLoop() {
 	return Message.wParam;
 }
 
+void cache_loop() {
+	while (true) {
+		cache();
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	}
+}
+
 int main() {
-	LI_FN(SetConsoleTitleA)(skCrypt(("V-Ware Private")));
+	LI_FN(SetConsoleTitleA)(skCrypt(("V-Ware Public")));
 
 	if (!handler::find_driver()) {
 		MessageBox(NULL, skCrypt("Error loading driver!"), skCrypt(""), NULL);
@@ -603,6 +611,9 @@ int main() {
 
 	std::cout << skCrypt("Base Address -> ") << virtualaddy << std::endl;
 	std::cout << skCrypt("CR3 -> ") << cr3 << std::endl;
+
+	std::thread cache_thread(cache_loop);
+	cache_thread.detach();
 
 	Hook_start();
 	InitializeDirectXOverlay();

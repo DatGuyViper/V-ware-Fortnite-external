@@ -216,7 +216,4 @@ void Render1() {
 		triggerbot(lazy::GetWeaponName((FortPTR)(Cached::LocalPawn)), (FortPTR)(Cached::PlayerController));
 
 	}
-
-	cache();
-	loop();
 }

@@ -25,8 +25,6 @@ struct InjectedInputMouseInfo
 };
 
 inline bool(*_NtUserInjectMouseInput)(InjectedInputMouseInfo*, int) = nullptr;
-inline  int screen_width;
-inline int screen_height;
 
 bool IsInScreen(Vector3 pos, int over = 30)
 {

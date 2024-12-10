@@ -11,12 +11,10 @@
 #define M_PI 3.14159265358979323846
 
 
-namespace windowHW
-{
-	int screenWidth = GetSystemMetrics(SM_CXSCREEN);
-	int screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
-}
+int screen_width = GetSystemMetrics(SM_CXSCREEN);
+int screen_height = GetSystemMetrics(SM_CYSCREEN);
+
 
 
 
@@ -468,8 +466,8 @@ public:
 		if (transformed.z < 1.f) transformed.z = 1.f;
 
 		return Vector2(
-			(windowHW::screenWidth / 2.0f) + transformed.x * ((windowHW::screenWidth / 2.0f) / tanf(viewInfo.fov * PI / 360.f)) / transformed.z,
-			(windowHW::screenHeight / 2.0f) - transformed.y * ((windowHW::screenWidth / 2.0f) / tanf(viewInfo.fov * PI / 360.f)) / transformed.z
+			(screen_width / 2.0f) + transformed.x * ((screen_width / 2.0f) / tanf(viewInfo.fov * PI / 360.f)) / transformed.z,
+			(screen_height / 2.0f) - transformed.y * ((screen_width / 2.0f) / tanf(viewInfo.fov * PI / 360.f)) / transformed.z
 		);
 	}
 
@@ -487,7 +485,7 @@ public:
 		if (vTransformed.z < 1.f)
 			vTransformed.z = 1.f;
 
-		return Vector3((windowHW::screenWidth / 2.0f) + vTransformed.x * (((windowHW::screenWidth / 2.0f) / tanf(viewInfo.fov * (float)PI / 360.f))) / vTransformed.z, (windowHW::screenHeight / 2.0f) - vTransformed.y * (((windowHW::screenWidth / 2.0f) / tanf(viewInfo.fov * (float)PI / 360.f))) / vTransformed.z, 0);
+		return Vector3((screen_width / 2.0f) + vTransformed.x * (((screen_width / 2.0f) / tanf(viewInfo.fov * (float)PI / 360.f))) / vTransformed.z, (screen_height / 2.0f) - vTransformed.y * (((screen_width / 2.0f) / tanf(viewInfo.fov * (float)PI / 360.f))) / vTransformed.z, 0);
 	}
 
 
@@ -1333,3 +1331,4 @@ namespace draw {
 		ImGui::GetBackgroundDrawList()->AddRectFilled(ImVec2(X, Y), ImVec2(X + W, Y + H), ImGui::ColorConvertFloat4ToU32(color));
 	}
 }
+

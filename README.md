@@ -1,5 +1,9 @@
 # V-ware-Fortnite-external
 
+
+* Devs - Viper/vrailn, NotDB
+
+
 One of the ony not ratted sources 😭
 
 mostly always updated

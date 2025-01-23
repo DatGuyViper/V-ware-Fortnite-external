@@ -184,11 +184,11 @@ namespace Features
 namespace Offsets {
 	uint64_t
 
-		UWorld = 0x169D6108,
-		GNames = 0x17B01480,
-		GameState = 0x178,
+		UWorld = 0x164015B8,
+		GNames = 0x165F5000,
+		GameState = 0x180,
 		PlayerArray = 0x2C0,
-		OwningGameInstance = 0x1F0,
+		OwningGameInstance = 0x1F8,
 		LocalPlayers = 0x38,
 		PlayerController = 0x30,
 		LocalPawn = 0x350,
@@ -199,7 +199,7 @@ namespace Offsets {
 		ActorCount = 0xA8,
 		ReviveFromDBNOTime = 0x4C38,
 		Mesh = 0x328,
-		TeamIndex = 0x1261,
+		TeamIndex = 0x1259,
 		Platform = 0x408,
 		PawnPrivate = 0x320,
 		RelativeLocation = 0x138,

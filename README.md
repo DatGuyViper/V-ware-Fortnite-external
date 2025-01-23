@@ -21,9 +21,6 @@ ill work on it and make it better in the future
 
 
 
-
- # Basic redshirt paste
-
  # looks good to pasters 
 
  # trumpware pastes from this 

@@ -1,6 +1,6 @@
 # V-ware-Fortnite-external
 
-* Build, via visual studio, use kdmapper, and play
+* Build via visual studio, use kdmapper, and play
 
 
 * Devs - Viper/vrailn, NotDB

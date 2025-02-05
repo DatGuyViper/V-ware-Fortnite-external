@@ -3,7 +3,7 @@
 * Build via visual studio, use kdmapper, and play
 
 
-* Devs - Viper/vrailn, NotDB
+* Devs - Viper/vrailn, NotDB, star/star2rich
 
 
 One of the ony not ratted sources 😭

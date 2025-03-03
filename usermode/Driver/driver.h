@@ -200,28 +200,23 @@ inline bool read1(const std::uintptr_t address, void* buffer, const std::size_t 
     handler::read_physical(reinterpret_cast<PVOID>(address), buffer, static_cast<DWORD>(size));
 }
 
-// Struct to represent an entry in the batch
 struct BatchReadEntry {
     uint64_t address;
     PVOID buffer;
     size_t size;
 };
 
-// Queue to store all the batched reads
 std::vector<BatchReadEntry> readBatchQueue;
 
-// AddToBatchRead: Queues up an address and buffer to be read later in a batch
 static void AddToBatchRead(uint64_t Address, PVOID Buffer, size_t Size) {
     BatchReadEntry entry;
     entry.address = Address;
     entry.buffer = Buffer;
     entry.size = Size;
 
-    // Add this entry to the read batch queue
     readBatchQueue.push_back(entry);
 }
 
-// ReadBatch: Processes all queued reads and clears the batch
 static void ReadBatch() {
     for (const auto& entry : readBatchQueue) {
         if (entry.buffer && entry.size > 0) {
@@ -229,6 +224,5 @@ static void ReadBatch() {
         }
     }
 
-    // Clear the queue after reading
     readBatchQueue.clear();
 }
